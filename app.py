@@ -141,7 +141,9 @@ def init_db():
     connection.commit()
     connection.close()
 
-
+# Initialize database when the application starts
+os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
+init_db()
 
 # ACTIVITY LOG FUNCTION
 def log_activity(username, action, document_name=None):
