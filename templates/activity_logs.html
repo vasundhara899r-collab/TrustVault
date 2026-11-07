@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TrustVault Activity Logs</title>
+</head>
+<body style="font-family: Arial; background:#eaf0f8; padding:30px;">
+
+    <h1>TrustVault - Activity Logs</h1>
+
+    <h3>Admin Activity History</h3>
+
+    <table border="1" cellpadding="12" cellspacing="0"
+           style="background:white; width:100%;">
+
+        <tr>
+            <th>Username</th>
+            <th>Action</th>
+            <th>Document Name</th>
+            <th>Date and Time</th>
+        </tr>
+
+        {% for log in logs %}
+        <tr>
+            <td>{{ log.username }}</td>
+            <td>{{ log.action }}</td>
+            <td>{{ log.document_name }}</td>
+            <td>{{ log.timestamp }}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+    <br>
+
+    <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+
+</body>
+</html>

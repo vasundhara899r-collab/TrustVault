@@ -1,0 +1,103 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TrustVault - Search Documents</title>
+</head>
+
+<body style="font-family:Arial; background:#eaf0f8; padding:40px;">
+
+<div style="background:white; padding:30px; max-width:850px; margin:auto; border-radius:12px;">
+
+    <h1>TrustVault</h1>
+    <h2>Search Documents</h2>
+
+    <form method="GET" action="{{ url_for('search_documents') }}">
+
+        <label>Search by File Name or Owner:</label><br><br>
+
+        <input type="text" name="q"
+               placeholder="Enter file name or owner"
+               value="{{ search_query }}"
+               style="padding:10px; width:70%;">
+
+        <br><br>
+
+        <label>Select Category:</label><br><br>
+
+        <select name="category" style="padding:10px;">
+            <option value="">All Categories</option>
+            {% for item in ["General", "Education", "Personal", "Business", "Finance", "Legal"] %}
+                <option value="{{ item }}"
+                    {% if selected_category == item %}selected{% endif %}>
+                    {{ item }}
+            </option>
+            {% endfor %}
+        </select>
+
+        <br><br>
+
+        <label>Search by Upload Date:</label><br><br>
+
+        <input type="date" name="upload_date"
+               value="{{ selected_date }}"
+               style="padding:10px;">
+
+        <br><br>
+
+        <button type="submit">Search</button>
+
+        <a href="{{ url_for('search_documents') }}">Clear Filters</a>
+
+    </form>
+
+    <hr>
+
+    <h3>Search Results</h3>
+
+    {% if documents %}
+
+        <table border="1" cellpadding="10" cellspacing="0">
+
+            <tr>
+                <th>File Name</th>
+                <th>Owner</th>
+                <th>Category</th>
+                <th>Upload Date</th>
+                <th>Action</th>
+            </tr>
+
+            {% for document in documents %}
+
+            <tr>
+                <td>{{ document["filename"] }}</td>
+                <td>{{ document["owner"] }}</td>
+                <td>{{ document["category"] }}</td>
+                <td>{{ document["upload_date"] or "Not available" }}</td>
+
+                <td>
+                    <a href="{{ url_for('download', filename=document['filename']) }}">
+                        Download
+                    </a>
+                </td>
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    {% else %}
+
+        <p>No documents found.</p>
+
+    {% endif %}
+
+    <br>
+
+    <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+
+</div>
+
+</body>
+</html>

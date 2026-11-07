@@ -1,0 +1,51 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TrustVault - Upload Document</title>
+</head>
+
+<body style="font-family:Arial; background:#eaf0f8; padding:40px;">
+
+    <div style="background:white; padding:30px; max-width:500px; margin:auto; border-radius:12px;">
+
+        <h1>TrustVault</h1>
+        <h2>Upload Document</h2>
+
+        <form method="POST" action="/upload" enctype="multipart/form-data">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <label>Select Document:</label>
+            <br><br>
+
+            <input type="file" name="document" required>
+
+            <br><br>
+
+            <label>Select Category:</label>
+            <br><br>
+
+            <select name="category" required>
+                <option value="General">General</option>
+                <option value="Education">Education</option>
+                <option value="Personal">Personal</option>
+                <option value="Business">Business</option>
+                <option value="Finance">Finance</option>
+                <option value="Legal">Legal</option>
+            </select>
+
+            <br><br>
+
+            <button type="submit">Upload</button>
+
+        </form>
+
+        <br>
+
+        <a href="/dashboard">Back to Dashboard</a>
+
+    </div>
+
+</body>
+</html>
+

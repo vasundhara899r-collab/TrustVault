@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TrustVault - Revoke Permission</title>
+</head>
+
+<body style="font-family:Arial; background:#eaf0f8; padding:40px;">
+
+    <div style="background:white; padding:30px; max-width:700px; margin:auto; border-radius:12px;">
+
+        <h1>TrustVault</h1>
+        <h2>Revoke Document Permission</h2>
+
+        {% with messages = get_flashed_messages() %}
+            {% for message in messages %}
+                <p style="color:green;">{{ message }}</p>
+            {% endfor %}
+        {% endwith %}
+
+        {% if permissions %}
+
+            {% for permission in permissions %}
+
+                <div style="border:1px solid #ccc; padding:15px; margin:10px 0;">
+
+                    <p><b>Document:</b> {{ permission.filename }}</p>
+
+                    <p><b>Owner:</b> {{ permission.owner }}</p>
+
+                    <p><b>User:</b> {{ permission.username }}</p>
+
+                    <p><b>Permission:</b> {{ permission.permission }}</p>
+
+                    <form method="POST" action="{{ url_for('revoke_permission') }}">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="permission_id"
+                               value="{{ permission.id }}">
+
+                        <button type="submit"
+                                onclick="return confirm('Are you sure you want to revoke this permission?')">
+                            Revoke Permission
+                        </button>
+
+                    </form>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>No permissions available.</p>
+
+        {% endif %}
+
+        <br>
+
+        <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+
+    </div>
+
+</body>
+</html>

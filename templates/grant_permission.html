@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TrustVault - Grant Permission</title>
+</head>
+
+<body style="font-family:Arial; background:#eaf0f8; padding:40px;">
+
+    <div style="background:white; padding:30px; max-width:500px; margin:auto; border-radius:12px;">
+
+        <h1>TrustVault</h1>
+        <h2>Grant Document Permission</h2>
+
+        <form method="POST" action="{{ url_for('grant_permission') }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <label>Select Document:</label>
+            <br><br>
+
+            <select name="document_id" required style="width:100%; padding:10px;">
+
+                {% for document in documents %}
+                <option value="{{ document.id }}">
+                    {{ document.filename }} ({{ document.owner }})
+                </option>
+                {% endfor %}
+
+            </select>
+
+            <br><br>
+
+            <label>Select User:</label>
+            <br><br>
+
+            <select name="username" required style="width:100%; padding:10px;">
+
+                {% for username in users %}
+                <option value="{{ username }}">
+                    {{ username }}
+                </option>
+                {% endfor %}
+
+            </select>
+
+            <br><br>
+
+            <label>Select Permission:</label>
+            <br><br>
+
+            <select name="permission" required style="width:100%; padding:10px;">
+
+                <option value="read">Read</option>
+                <option value="edit">Edit</option>
+
+            </select>
+
+            <br><br>
+
+            <button type="submit" style="padding:10px 20px;">
+                Grant Permission
+            </button>
+
+        </form>
+
+        <br>
+
+        <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+
+    </div>
+
+</body>
+</html>
